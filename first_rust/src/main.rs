@@ -34,5 +34,14 @@ fn main() {
     
     let links_client = Client::with_options(client_options.clone());
     let links_database = links_client.database(&linksdata_database);
+    
+    
+    
+    let drugIndication_links_collection = links_database.collection::<DrugIndication>("drugIndication");
+    let drugapproval_fda_links_collection = links_database.collection::<DrugApproval>("fdaDrugsApproval");
+    let drugCompany_links_collection = links_database.collection::<DrugCompany>("drugCompany");
+
+    
+    let cursor = drugapproval_fda_links_collection.find(None, None).unwrap();
 
 }
