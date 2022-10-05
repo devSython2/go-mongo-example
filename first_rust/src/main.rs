@@ -63,5 +63,47 @@ fn main() {
 
     
     let cursor = drugapproval_fda_links_collection.find(None, None).unwrap();
+    
+        for result in cursor {
+        let mut drug_name = "".to_string();
+        if let Some(drugname_other) = result.drug_name.clone(){
+            drug_name = drugname_other.clone();
+            let indication_cursor = drugIndication_links_collection.find(None, None);
+            for output in indication_cursor{
+                 match output {
+                    Ok (data)=>{
+                
+                
+                        let mut nctid = "".to_string();
+                        if let Some(nct_id_other) = data.nct_id.clone() {
+                            nctid = nct_id_other.clone();
+                        }
+
+                        let mut interventionname = "".to_string();
+                        if let Some(intervention_name_other) = data.intervention_name.clone(){
+                            interventionname = intervention_name.clone();
+                        }
+
+                        let mut indication= "".to_string();
+                        if let Some(indication_other) = data.indication.clone(){
+                            indication = indication_other.clone();
+                        }
+                        if drug_name ==  interventionname{
+                            let mut aprrovaldate = "".to_string();
+                            if let Some (approval_date_other) = result.approval_date.clone(){
+                                aprrovaldate  = approval_date_other.clone();
+                            }
+                        }
+                        Err(error)=> {
+                            println!("Error :: {:?}", error);
+                            continue;
+                        }
+                    }
+                }
+            }
+        } // end of "if let Some(drugname_other) = result.drug_name.clone()"
+
+    
+    
 
 }
